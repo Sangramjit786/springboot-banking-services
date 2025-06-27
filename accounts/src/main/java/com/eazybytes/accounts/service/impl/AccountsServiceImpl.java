@@ -85,4 +85,37 @@ public class AccountsServiceImpl implements IAccountsService {
         return customerDto;
     }
 
+    /**
+     * Updates the account for the given customer.
+     * Retrieves the existing customer and account information based on the provided customer details.
+     * Updates the account with the new information and saves it to the repository.
+     *
+     * @param customerDto The CustomerDto object containing the updated customer and account details.
+     * @return true if the update is successful, false otherwise.
+     * @throws ResourceNotFoundException if the customer or account does not exist.
+     */
+    @Override
+    public boolean updateAccount(CustomerDto customerDto) {
+        boolean isUpdated = false;
+        AccountsDto accountsDto = customerDto.getAccountsDto();
+        if(accountsDto !=null ){
+            Accounts accounts = accountsRepository.findById(accountsDto.getAccountNumber()).orElseThrow(
+                    () -> new ResourceNotFoundException("Account", "AccountNumber", accountsDto.getAccountNumber().toString())
+            );
+            AccountsMapper.mapToAccounts(accountsDto, accounts);
+            accounts = accountsRepository.save(accounts);
+
+            Long customerId = accounts.getCustomerId();
+            Customer customer = customerRepository.findById(customerId).orElseThrow(
+                    () -> new ResourceNotFoundException("Customer", "CustomerID", customerId.toString())
+            );
+            CustomerMapper.mapToCustomer(customerDto,customer);
+            customerRepository.save(customer);
+            isUpdated = true;
+        }
+        return  isUpdated;
+    }
+
+
+
 }
