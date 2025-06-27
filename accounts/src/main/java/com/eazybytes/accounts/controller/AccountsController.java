@@ -42,6 +42,15 @@ public class AccountsController {
         return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
 
+    /**
+     * Updates the account details for the given customer.
+     * @param customerDto The CustomerDto object containing the updated customer details.
+     * @return A ResponseEntity containing a ResponseDto with the HTTP status code
+     *         and a message indicating the success or failure of the operation.
+     *         Returns HTTP status OK if the update is successful,
+     *         or EXPECTATION_FAILED if the update fails,
+     *         or INTERNAL_SERVER_ERROR if an unexpected error occurs.
+     */
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccountDetails(@RequestBody CustomerDto customerDto) {
         boolean isUpdated = iAccountsService.updateAccount(customerDto);
@@ -53,6 +62,34 @@ public class AccountsController {
 //            return ResponseEntity
 //                    .status(HttpStatus.EXPECTATION_FAILED)
 //                    .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_UPDATE));
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDto(AccountsConstants.STATUS_500, AccountsConstants.MESSAGE_500));
+        }
+    }
+
+    /**
+     * Deletes the account associated with the given mobile number.
+     *
+     * @param mobileNumber The mobile number of the customer whose account is to be deleted.
+     * @return A ResponseEntity containing a ResponseDto with the HTTP status code
+     *         and a message indicating the success or failure of the operation.
+     *         Returns HTTP status OK if the account is successfully deleted,
+     *         or EXPECTATION_FAILED if the deletion fails.
+     */
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseDto> deleteAccountDetails(@RequestParam String mobileNumber) {
+        boolean isDeleted = iAccountsService.deleteAccount(mobileNumber);
+        if(isDeleted) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto(AccountsConstants.STATUS_200, AccountsConstants.MESSAGE_200));
+        }else{
+//            return ResponseEntity
+//                    .status(HttpStatus.EXPECTATION_FAILED)
+//                    .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
+
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ResponseDto(AccountsConstants.STATUS_500, AccountsConstants.MESSAGE_500));
