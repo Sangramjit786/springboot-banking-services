@@ -12,6 +12,36 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles the ResourceNotFoundException by returning a ResponseEntity with HTTP Status code as NOT_FOUND.
+     * The ErrorResponseDto object is created with the exception message and other details, which are then passed
+     * to the ResponseEntity.
+     *
+     * @param exception The ResourceNotFoundException object thrown from the service layer.
+     * @param webRequest The WebRequest object that contains the request details.
+     * @return ResponseEntity with HTTP Status code as NOT_FOUND and ErrorResponseDto object as body.
+     */
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleResourceNotFoundException(ResourceNotFoundException exception,
+                                                                            WebRequest webRequest) {
+        ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * This method handles the CustomerAlreadyExistsException by returning a ResponseEntity with HTTP Status code as BAD_REQUEST.
+     * The ErrorResponseDto object is created with the exception message and other details which are then passed to the ResponseEntity.
+     *
+     * @param exception The CustomerAlreadyExistsException object thrown from the service layer.
+     * @param webRequest The WebRequest object that contains the request details.
+     * @return ResponseEntity with HTTP Status code as BAD_REQUEST and ErrorResponseDto object as body.
+     */
     @ExceptionHandler(CustomerAlreadyExistsException.class)
     public ResponseEntity<ErrorResponseDto> handleCustomerAlreadyExistsException(CustomerAlreadyExistsException exception,
                                                                                  WebRequest webRequest){

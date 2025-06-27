@@ -17,6 +17,12 @@ public class AccountsController {
 
     private IAccountsService iAccountsService;
 
+    /**
+     * Creates a new account for the given customer.
+     * @param customerDto The CustomerDto object containing the customer details.
+     * @return A ResponseEntity containing a ResponseDto with the HTTP status code
+     *         and a message indicating the success or failure of the operation.
+     */
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
         iAccountsService.createAccount(customerDto);
@@ -24,4 +30,15 @@ public class AccountsController {
                .status(HttpStatus.CREATED)
                .body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
    }
+
+    /**
+     * Fetches the account details for the given mobile number.
+     * @param mobileNumber The mobile number of the customer for whom the account details are being fetched.
+     * @return A ResponseEntity containing the CustomerDto with the account details.
+     */
+    @GetMapping("/fetch")
+    public ResponseEntity<CustomerDto> fetchAccountDetails(@RequestParam String mobileNumber) {
+        CustomerDto customerDto = iAccountsService.fetchAccount(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDto);
+    }
 }
