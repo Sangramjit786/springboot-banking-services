@@ -13,6 +13,25 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     /**
+     * Handles any unexpected exceptions that are not handled by other exception handlers.
+     * @param exception The exception that was thrown.
+     * @param webRequest The WebRequest object that contains the request details.
+     * @return A ResponseEntity containing an ErrorResponseDto object with the HTTP status code
+     *         set to INTERNAL_SERVER_ERROR and a message indicating an unexpected error occurred.
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception exception,
+                                                                  WebRequest webRequest) {
+        ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
      * Handles the ResourceNotFoundException by returning a ResponseEntity with HTTP Status code as NOT_FOUND.
      * The ErrorResponseDto object is created with the exception message and other details, which are then passed
      * to the ResponseEntity.
