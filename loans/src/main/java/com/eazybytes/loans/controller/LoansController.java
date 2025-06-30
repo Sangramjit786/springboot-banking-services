@@ -2,6 +2,7 @@ package com.eazybytes.loans.controller;
 
 import com.eazybytes.loans.constants.LoansConstants;
 import com.eazybytes.loans.dto.ErrorResponseDto;
+import com.eazybytes.loans.dto.LoansContactInfoDto;
 import com.eazybytes.loans.dto.LoansDto;
 import com.eazybytes.loans.dto.ResponseDto;
 import com.eazybytes.loans.service.ILoansService;
@@ -14,6 +15,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +30,33 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
+//@AllArgsConstructor
 @Validated
 public class LoansController {
 
     private ILoansService iLoansService;
 
+    public LoansController(ILoansService iLoansService) {
+        this.iLoansService = iLoansService;
+    }
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private LoansContactInfoDto loansContactInfoDto;
+
+    /**
+     * Creates a new loan inside EazyBank for the given mobile number.
+     * @param mobileNumber The mobile number of the customer for whom the loan is being created.
+     * @return A ResponseEntity containing a ResponseDto with the HTTP status code
+     *         and a message indicating the success or failure of the operation.
+     *         Returns HTTP status CREATED if the loan is successfully created,
+     *         or INTERNAL_SERVER_ERROR if an unexpected error occurs.
+     */
     @Operation(
             summary = "Create Loan REST API",
             description = "REST API to create new loan inside EazyBank"
@@ -60,6 +85,11 @@ public class LoansController {
                 .body(new ResponseDto(LoansConstants.STATUS_201, LoansConstants.MESSAGE_201));
     }
 
+    /**
+     * Fetches the loan details for the given mobile number.
+     * @param mobileNumber The mobile number of the customer for whom the loan details are being fetched.
+     * @return A ResponseEntity containing the LoansDto with the loan details.
+     */
     @Operation(
             summary = "Fetch Loan Details REST API",
             description = "REST API to fetch loan details based on a mobile number"
@@ -86,6 +116,15 @@ public class LoansController {
         return ResponseEntity.status(HttpStatus.OK).body(loansDto);
     }
 
+    /**
+     * Updates the loan details for the given loan number.
+     * @param loansDto The LoansDto object containing the updated loan details.
+     * @return A ResponseEntity containing a ResponseDto with the HTTP status code
+     *         and a message indicating the success or failure of the operation.
+     *         Returns HTTP status OK if the loan is successfully updated,
+     *         or EXPECTATION_FAILED if the update fails,
+     *         or INTERNAL_SERVER_ERROR if an unexpected error occurs.
+     */
     @Operation(
             summary = "Update Loan Details REST API",
             description = "REST API to update loan details based on a loan number"
@@ -122,6 +161,15 @@ public class LoansController {
         }
     }
 
+    /**
+     * Deletes the loan details for the given mobile number.
+     * @param mobileNumber The mobile number of the customer whose loan details are being deleted.
+     * @return A ResponseEntity containing a ResponseDto with the HTTP status code
+     *         and a message indicating the success or failure of the operation.
+     *         Returns HTTP status OK if the loan is successfully deleted,
+     *         or EXPECTATION_FAILED if the deletion fails,
+     *         or INTERNAL_SERVER_ERROR if an unexpected error occurs.
+     */
     @Operation(
             summary = "Delete Loan Details REST API",
             description = "REST API to delete Loan details based on a mobile number"
@@ -158,5 +206,108 @@ public class LoansController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    /**
+     * Retrieves the build information that is deployed into the cards microservice.
+     * <p>
+     * This endpoint returns a ResponseEntity containing a String with the build information.
+     * The HTTP status code is OK (200) if the build information can be retrieved successfully.
+     * If an unexpected error occurs, the HTTP status code is INTERNAL_SERVER_ERROR (500)
+     * and the ResponseEntity contains an ErrorResponseDto object with the error details.
+     * @return ResponseEntity containing the build information.
+     */
+    @Operation(
+            summary = "Get Build information",
+            description = "Get Build information that is deployed into cards microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+
+    /**
+     * Retrieves the Java version that is installed into the cards microservice.
+     * <p>
+     * This endpoint returns a ResponseEntity containing a String with the Java version.
+     * The HTTP status code is OK (200) if the Java version can be retrieved successfully.
+     * If an unexpected error occurs, the HTTP status code is INTERNAL_SERVER_ERROR (500)
+     * and the ResponseEntity contains an ErrorResponseDto object with the error details.
+     * @return ResponseEntity containing the Java version.
+     */
+    @Operation(
+            summary = "Get Java version",
+            description = "Get Java versions details that is installed into cards microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+    }
+
+    /**
+     * Retrieves the contact information details for the loans microservice.
+     * <p>
+     * This endpoint returns a ResponseEntity containing a LoansContactInfoDto object with the contact information.
+     * The HTTP status code is OK (200) if the contact information can be retrieved successfully.
+     * If an unexpected error occurs, the HTTP status code is INTERNAL_SERVER_ERROR (500)
+     * and the ResponseEntity contains an ErrorResponseDto object with the error details.
+     * @return ResponseEntity containing the LoansContactInfoDto object.
+     */
+
+    @Operation(
+            summary = "Get Contact Info",
+            description = "Contact Info details that can be reached out in case of any issues"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoansContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(loansContactInfoDto);
     }
 }
