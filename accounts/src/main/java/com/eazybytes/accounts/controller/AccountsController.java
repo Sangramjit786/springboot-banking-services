@@ -1,6 +1,7 @@
 package com.eazybytes.accounts.controller;
 
 import com.eazybytes.accounts.constants.AccountsConstants;
+import com.eazybytes.accounts.dto.AccountsContactInfoDto;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
@@ -43,6 +44,9 @@ public class AccountsController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private AccountsContactInfoDto accountsContactInfoDto;
 
     /**
      * Creates a new account for the given customer.
@@ -274,5 +278,40 @@ public class AccountsController {
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
 //                .body(environment.getProperty("MAVEN_HOME"));
+    }
+
+
+    /**
+     * Retrieves the contact information details for the accounts microservice.
+     * <p>
+     * This endpoint returns a ResponseEntity containing an AccountsContactInfoDto object with the contact information.
+     * The HTTP status code is OK (200) if the contact information can be retrieved successfully.
+     * If an unexpected error occurs, the HTTP status code is INTERNAL_SERVER_ERROR (500)
+     * and the ResponseEntity contains an ErrorResponseDto object with the error details.
+     * @return ResponseEntity containing the AccountsContactInfoDto object.
+     */
+    @Operation(
+            summary = "Get Contact Info",
+            description = "Contact Info details that can be reached out in case of any issues"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
     }
 }
