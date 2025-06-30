@@ -14,7 +14,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,9 @@ public class AccountsController {
 
     @Value("${build.version}")
     private String buildVersion;
+
+    @Autowired
+    private Environment environment;
 
     /**
      * Creates a new account for the given customer.
@@ -235,5 +240,40 @@ public class AccountsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
+    }
+
+    /**
+     * Retrieves the Java version that is installed into the accounts microservice.
+     * <p>
+     * This endpoint returns a ResponseEntity containing a String with the Java version.
+     * The HTTP status code is OK (200) if the Java version can be retrieved successfully.
+     * If an unexpected error occurs, the HTTP status code is INTERNAL_SERVER_ERROR (500)
+     * and the ResponseEntity contains an ErrorResponseDto object with the error details.
+     * @return ResponseEntity containing the Java version.
+     */
+    @Operation(
+            summary = "Get Java version",
+            description = "Get Java versions details that is installed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+//                .body(environment.getProperty("MAVEN_HOME"));
     }
 }
