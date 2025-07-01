@@ -3,11 +3,12 @@ spring:
     name: "configserver"
   profiles:
     active: native
-    cloud:
-      config:
-        server:
-          native:
-            search-locations: "classpath:/config"
+  cloud:
+    config:
+      server:
+        native:
+#         search-locations: "classpath:/config"
+          search-locations: "file:///C://Users//Rohit//Documents//eazybytes//config"
 
 
 server:
