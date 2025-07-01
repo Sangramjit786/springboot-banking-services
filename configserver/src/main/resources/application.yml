@@ -17,6 +17,8 @@ spring:
           #search-locations: "classpath:/config"
           #search-locations: "file:///C://Users//Rohit//Documents//eazybytes//config"
 
+encrypt:
+  key: "45D81EC1EF61DF9AD8D3E5BB397F9"
 
 server:
   port: 8071
