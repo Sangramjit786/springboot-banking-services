@@ -16,11 +16,6 @@ spring:
         #native:
           #search-locations: "classpath:/config"
           #search-locations: "file:///C://Users//Rohit//Documents//eazybytes//config"
-  rabbitmq:
-    host: "localhost"
-    port: 5672
-    username: "guest"
-    password: "guest"
 
 management:
   endpoints:
@@ -40,11 +35,6 @@ management:
 encrypt:
   key: "45D81EC1EF61DF9AD8D3E5BB397F9"
 
-logging:
-  level:
-    org.springframework.cloud.bus: DEBUG
-    org.springframework.amqp: DEBUG
-    org.springframework.amqp.rabbit: DEBUG
 
 server:
   port: 8071
