@@ -39,10 +39,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-function-context</artifactId>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-function-web</artifactId>
-		</dependency>
+		</dependency> it is commented as we donot want to expose my email and sms method as APIs-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
