@@ -150,6 +150,26 @@ public class AccountsServiceImpl implements IAccountsService {
         return true;
     }
 
+    /**
+     * Updates the communication status of the account associated with the given account number.
+     *
+     * @param accountNumber The account number of the account whose communication status is to be updated.
+     * @return true if the communication status is successfully updated, false otherwise.
+     * @throws ResourceNotFoundException if no account is found for the given account number.
+     */
+    @Override
+    public boolean updateCommunicationStatus(Long accountNumber) {
+        boolean isUpdated = false;
+        if(accountNumber !=null ){
+            Accounts accounts = accountsRepository.findById(accountNumber).orElseThrow(
+                    () -> new ResourceNotFoundException("Account", "AccountNumber", accountNumber.toString())
+            );
+            accounts.setCommunicationSw(true);
+            accountsRepository.save(accounts);
+            isUpdated = true;
+        }
+        return  isUpdated;
+    }
 
 
 }

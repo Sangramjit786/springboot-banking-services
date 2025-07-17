@@ -33,4 +33,14 @@ public interface IAccountsService {
      */
 
     boolean deleteAccount(String mobileNumber);
+
+
+    /**
+     * Updates the communication status for the given account number.
+     *
+     * @param accountNumber The account number for which the communication status is to be updated.
+     * @return true if the communication status is successfully updated, false otherwise.
+     */
+
+    boolean updateCommunicationStatus(Long accountNumber);
 }
