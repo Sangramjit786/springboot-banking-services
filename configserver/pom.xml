@@ -80,7 +80,7 @@
 				<version>3.4.6</version>
 				<configuration>
 					<to>
-						<image>sangram5397/${project.artifactId}:s13</image>
+						<image>sangram5397/${project.artifactId}:s14</image>
 					</to>
 				</configuration>
 			</plugin>
