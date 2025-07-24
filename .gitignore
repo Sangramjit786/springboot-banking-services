@@ -1,0 +1,31 @@
+# Helm chart packages
+**/charts/*.tgz
+**/charts/*.tgz.prov
+
+# Local .helm files
+.helm/
+
+# Local environment files
+.env
+.env.local
+
+# IDE specific files
+.idea/
+*.iml
+
+# Logs
+logs/
+*.log
+
+# Build output
+build/
+target/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
