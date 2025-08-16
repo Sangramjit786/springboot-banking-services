@@ -123,8 +123,10 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 83. [Preparing Docker Compose files for QA & prod profiles](#83 preparing docker compose files for qa prod profiles)  
 ## Refresh configurations at runtime using '/refresh' path Flow:
 <img width="1357" height="562" alt="image" src="https://github.com/user-attachments/assets/074e5b77-257c-4201-8950-8d51b3612486" />
+
 ## Refresh configurations at runtime using Spring Cloud Bus Flow:
 <img width="1236" height="578" alt="image" src="https://github.com/user-attachments/assets/4b73eb2f-aa7a-4d40-9a87-a154bec332da" />
+
 ## Refresh configurations at runtime using Spring Cloud Bus & Spring Cloud Config Monitor Flow:
 <img width="1827" height="782" alt="image" src="https://github.com/user-attachments/assets/ed8987c6-5b5b-4255-aa3b-651ac000158f" />
 
