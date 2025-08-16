@@ -994,6 +994,219 @@ Access via browser.
 Manual YAML creation = error-prone, repetitive, hard to scale.
 Solution: Helm charts, Kustomize, GitOps.
 
+### 208) Introduction to Helm & the problems that it solves
+Helm is a package manager for Kubernetes that simplifies deployment and management of applications. It solves problems like:
+Managing large YAML manifests for complex microservices.
+Versioning and rolling back deployments.
+Reusing templates across environments (Dev/QA/Prod).
+Reducing human errors by providing parameterized templates.
+
+### 209) Installing Helm
+Download Helm from helm.sh.
+Install via package manager (e.g., brew install helm for Mac, choco install kubernetes-helm for Windows).
+Verify installation:
+helm version
+
+### 210) Installing a sample Helm Chart
+Helm provides predefined charts (e.g., nginx).
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install my-nginx bitnami/nginx
+
+This deploys nginx with default values into Kubernetes.
+
+### 211) Understanding Helm Chart structure
+A Helm chart has the following structure:
+charts/
+templates/   # Kubernetes YAML files with placeholders
+values.yaml  # Default configuration values
+Chart.yaml   # Chart metadata
+This modular approach allows parameterization of Kubernetes resources.
+
+### 212) Creating our own Helm chart & template files
+We generate a custom chart for our project:
+helm create accounts-chart
+Modify values.yaml for DB config, replicas, ports.
+Adjust templates/deployment.yaml & service.yaml with variables.
+
+### 213) Creating Helm chart for Accounts microservice
+The Accounts microservice chart includes:
+Deployment (Spring Boot container).
+ConfigMap for DB connection.
+Service for internal communication.
+Ingress for external access.
+
+### 214) Creating Helm charts for other microservices
+Similar charts are created for Loans, Cards, Gateway, ConfigServer, Eureka, Kafka, Keycloak, etc.
+This ensures consistent deployment across all services.
+
+### 215) Creating Helm charts for Dev, QA and Prod environment
+We use values files per environment:
+values-dev.yaml → lightweight config, fewer replicas.
+values-qa.yaml → stable testing setup.
+values-prod.yaml → production-grade (autoscaling, monitoring).
+Deploy using:
+helm install accounts -f values-prod.yaml ./accounts-chart
+
+### 216) Demo of helm template command
+The helm template command renders manifests without applying them:
+helm template accounts ./accounts-chart
+Useful for debugging YAMLs before applying.
+
+### 217) Install KeyCloak in Kubernetes Cluster using Helm Chart
+Deploy Keycloak via Bitnami Helm chart:
+helm install keycloak bitnami/keycloak
+Used for authentication and authorization of banking services.
+
+### 218) Install Kafka in Kubernetes Cluster using Helm Chart
+Deploy Kafka for event-driven microservices:
+helm install kafka bitnami/kafka
+This powers async communication between services.
+
+### 219) Install Prometheus in Kubernetes Cluster using Helm Chart
+Prometheus collects metrics from microservices.
+helm install prometheus bitnami/prometheus
+
+### 220) Install Grafana Loki & Tempo in Kubernetes Cluster using Helm Chart
+Loki: log aggregation.
+Tempo: distributed tracing.
+helm install loki grafana/loki-stack
+helm install tempo grafana/tempo
+
+### 221) Install Grafana in Kubernetes Cluster using Helm Chart
+Grafana is installed to visualize metrics, logs, and traces:
+helm install grafana grafana/grafana
+
+### 222) Install eazybank microservices in Kubernetes Cluster using Helm Chart
+Custom charts for Accounts, Loans, Cards, Gateway, ConfigServer are installed with:
+helm install accounts ./accounts-chart
+helm install loans ./loans-chart
+
+### 2### 23) Demo of helm upgrade command
+Upgrade running services without downtime:
+helm upgrade accounts ./accounts-chart
+
+### 224) Demo of helm history and rollback commands
+Check deployment history:
+helm history accounts
+Rollback to version 1:
+helm rollback accounts 1
+
+### 225) Demo of helm uninstall command
+Uninstall service:
+helm uninstall accounts
+
+### 226) Quick revision of important helm commands
+helm install → deploy chart.
+helm upgrade → upgrade release.
+helm rollback → rollback release.
+helm uninstall → remove release.
+helm history → view version history.
+helm template → preview manifests.
+
+### 227) Introduction to Server-side service discovery and load balancing
+Kubernetes handles service discovery internally using DNS-based discovery and load balancing using ClusterIP, NodePort, LoadBalancer services.
+
+### 228) How to setup discovery server in K8s cluster using Spring Cloud Kubernetes
+Spring Cloud Kubernetes allows microservices to auto-discover each other using ConfigMaps and Kubernetes Services, avoiding Eureka when inside K8s.
+
+### 229) Install spring cloud kubernetes discovery server in K8s cluster
+Discovery server Helm chart deployed with:
+helm install discovery ./discovery-chart
+
+### 230) Making Kubernetes Discovery Client changes in microservices
+Update pom.xml:
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-kubernetes-client-all</artifactId>
+</dependency>
+Enable via bootstrap.yaml.
+
+### 231) Updating Helm charts for Kubernetes Discovery Server changes
+Modify service Helm charts to remove Eureka configs and rely on Kubernetes DNS discovery.
+
+### 232) Demo of Server-side service discovery and load balancing
+Deploy services and validate:
+kubectl get svc
+Access services by DNS: http://accounts.default.svc.cluster.local.
+
+### 233) Kubernetes support by Cloud providers
+GCP: GKE (Google Kubernetes Engine).
+AWS: EKS (Elastic Kubernetes Service).
+Azure: AKS (Azure Kubernetes Service).
+These offer managed K8s clusters with auto-scaling, security, monitoring.
+
+### 234) Set up Google Cloud account & install Google Cloud SDK
+Create free GCP account.
+Install SDK:
+gcloud init
+
+### 235) Create a Kubernetes cluster in Google Cloud
+gcloud container clusters create eazybank-cluster --zone=us-central1-a
+
+### 236) Installing all our microservices and supporting components in Google Cloud K8s
+Use Helm to install all services:
+helm install accounts ./accounts-chart --namespace eazybank
+helm install keycloak ./keycloak-chart
+
+### 237) Demo of eazybank microservices using Google Cloud Kubernetes Cluster
+Access services via LoadBalancer IPs.
+Validate that Accounts, Loans, and Cards microservices interact seamlessly.
+
+### 238) Validate Grafana components in Google Cloud Kubernetes Cluster
+Check dashboards for metrics, logs, and tracing inside GCP-managed Grafana.
+
+### 239) Deleting the Google Cloud Kubernetes Cluster
+gcloud container clusters delete eazybank-cluster --zone=us-central1-a
+
+### 240) Quick introduction to Kubernetes Ingress
+Ingress is a Kubernetes resource that manages external access (HTTP/HTTPS) to services inside the cluster.
+
+### 241) Deep dive on Kubernetes Ingress & Ingress Controller
+Ingress Resource → defines rules for routing traffic.
+Ingress Controller (e.g., Nginx) → enforces rules and provides SSL termination.
+
+### 242) Benefits of Kubernetes Ingress & the kind of traffic it handles
+Consolidates routing in one place.
+Supports SSL/TLS termination.
+Handles HTTP and HTTPS traffic.
+Reduces need for multiple LoadBalancers.
+
+### 243) Introduction to Service Mesh & it's capabilities
+Service Mesh (e.g., Istio, Linkerd) adds observability, traffic control, retries, circuit breaking, mTLS between microservices.
+
+### 244) Introduction to Service mesh components
+Data Plane → sidecar proxies (Envoy).
+Control Plane → manages policies, configurations, and observability.
+
+### 245) Introduction to mTLS & deep dive on how TLS works
+TLS encrypts communication between client and server. mTLS (mutual TLS) ensures both client and server authenticate each other, increasing security.
+
+### 246) How does mTLS works
+Client requests connection → sends certificate.
+Server validates client cert.
+Server sends its certificate → client validates.
+Secure encrypted channel established.
+
+### 247) Optimizing Microservices Development with Spring Boot BOM
+BOM (Bill of Materials) manages common dependencies.
+Ensures consistency across microservices without version conflicts.
+Example:
+<dependencyManagement>
+   <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-dependencies</artifactId>
+     <version>3.2.0</version>
+     <type>pom</type>
+     <scope>import</scope>
+   </dependency>
+</dependencyManagement>
+
+### 248) Shared Libraries in Microservices
+We create shared libraries for common code (DTOs, exception handling, utilities).
+Reduces duplication.
+Speeds up development.
+Ensures consistency across services.
+
 ---
 
 ## 🚀 Conclusion
