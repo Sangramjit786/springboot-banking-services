@@ -31,6 +31,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 11. [READ API inside accounts microservice](#11 read api inside accounts microservice)  
 12. [UPDATE API inside accounts microservice](#12 update api inside accounts microservice)  
 13. [DELETE API inside accounts microservice](#13 delete api inside accounts microservice) 
+## DTO Pattern:
+<img width="1300" height="341" alt="image" src="https://github.com/user-attachments/assets/7e178625-511a-47d3-8323-da341f1ac0b2" />
 
 ## 4) Exception Handling & Validations 
 14. [Handle all types of runtime exceptions using global logic inside accounts](#14 handle all types of runtime exceptions using global logic inside accounts)  
@@ -119,6 +121,12 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 81. [Generating Docker images and pushing them into Docker Hub](#81 generating docker images and pushing them into docker hub)  
 82. [Testing Config Server changes end to end using Docker compose & default profile](#82 testing config server changes end to end using docker compose default profile)  
 83. [Preparing Docker Compose files for QA & prod profiles](#83 preparing docker compose files for qa prod profiles)  
+## Refresh configurations at runtime using '/refresh' path Flow:
+<img width="1357" height="562" alt="image" src="https://github.com/user-attachments/assets/074e5b77-257c-4201-8950-8d51b3612486" />
+## Refresh configurations at runtime using Spring Cloud Bus Flow:
+<img width="1236" height="578" alt="image" src="https://github.com/user-attachments/assets/4b73eb2f-aa7a-4d40-9a87-a154bec332da" />
+## Refresh configurations at runtime using Spring Cloud Bus & Spring Cloud Config Monitor Flow:
+<img width="1827" height="782" alt="image" src="https://github.com/user-attachments/assets/ed8987c6-5b5b-4255-aa3b-651ac000158f" />
 
 ## 13. Database Management
 84. [Create MySQL DB containers for microservices](#84 create mysql db containers for microservices)  
