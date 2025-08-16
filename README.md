@@ -7,6 +7,10 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 
 ---
 
+### Entire Project Flow
+<img width="1347" height="692" alt="image" src="https://github.com/user-attachments/assets/42e52ea1-b848-4bfb-967a-d4b108828623" />
+
+---
 ## 📘 Table of Contents
 
 ## 1) Getting Started with Microservices
