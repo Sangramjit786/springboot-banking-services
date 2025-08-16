@@ -1256,6 +1256,241 @@ Ensures consistency across services.
 
 ---
 
+### Key Technologies
+
+- **Spring Boot 3.x**
+- **Spring Cloud**
+- **Spring Data JPA**
+- **Docker & Docker Compose**
+- **Spring Cloud Config**
+- **Netflix Eureka**
+- **Spring Cloud OpenFeign**
+- **Springdoc OpenAPI**
+- **H2 & MySQL**
+- **Actuator**
+- **GraalVM**
+- **Docker**
+- **Kafka**
+- **Rabbit MQ**
+- **K8s**
+
+## Project Structure
+
+```
+springboot-banking-services/
+├── accounts/          # Accounts microservice
+├── cards/             # Cards microservice
+├── loans/             # Loans microservice
+├── configserver/      # Spring Cloud Config Server
+├── eurekaserver/      # Service Discovery
+├── gatewayserver/     # API Gateway
+├── message/           # Message service
+└── docker-compose/    # Docker Compose configurations
+```
+
+## 🛠️ Prerequisites
+
+- Java 21+
+- Maven 3.6.3+
+- Docker 20.10.0+
+- Docker Compose 2.0.0+
+- Git
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/springboot-banking-services.git
+   cd springboot-banking-services
+   ```
+
+2. **Build the project**
+   ```bash
+   mvn clean install
+   ```
+
+3. **Start the infrastructure**
+   ```bash
+   cd docker-compose/default
+   docker-compose up -d
+   ```
+
+4. **Start the services**
+   ```bash
+   # In separate terminals
+   mvn spring-boot:run -pl configserver
+   mvn spring-boot:run -pl eurekaserver
+   mvn spring-boot:run -pl gatewayserver
+   mvn spring-boot:run -pl accounts
+   mvn spring-boot:run -pl cards
+   mvn spring-boot:run -pl loans
+   mvn spring-boot:run -pl message
+   ```
+
+## 🌐 API Endpoints
+
+- **Eureka Dashboard**: http://localhost:8070
+- **Config Server**: http://localhost:8071
+- **API Gateway**: http://localhost:8072
+- **Accounts Service**: http://localhost:8080/accounts
+- **Cards Service**: http://localhost:8090/cards
+- **Loans Service**: http://localhost:9000/loans
+
+## 🐳 Docker Support
+
+Build and run the entire application using Docker Compose:
+
+```bash
+docker-compose -f docker-compose/default/docker-compose.yml up --build
+```
+
+## Core Concepts
+
+### Building Microservices
+- Decomposed by business capabilities
+- Independent deployment units
+- Loosely coupled services
+- Own database per service
+
+### Spring Boot Framework
+- Opinionated framework for building production-ready applications
+- Auto-configuration
+- Standalone Spring applications
+- Embedded servers (Tomcat, Jetty, Undertow)
+- Production-ready features (metrics, health checks, etc.)
+
+### REST APIs & Best Practices
+- Resource-oriented architecture
+- HTTP methods (GET, POST, PUT, DELETE, PATCH)
+- Status codes
+- HATEOAS
+- Versioning
+- Pagination, filtering, sorting
+- Error handling
+- API documentation (OpenAPI/Swagger)
+
+### Data Access
+- Spring Data JPA
+- Entity relationships
+- Repository pattern
+- Auditing (@CreatedDate, @LastModifiedDate)
+- Database migrations (Flyway/Liquibase)
+
+### DTO Pattern
+- Data Transfer Objects for API contracts
+- Mapping between entities and DTOs (MapStruct)
+- Validation annotations
+- Immutable DTOs (Records)
+
+## API Documentation
+
+Access API documentation at: `http://localhost:8080/swagger-ui.html`
+
+### Documentation Features
+- OpenAPI 3.0 specification
+- Interactive API console
+- Request/response examples
+- Security schemes
+- API versioning
+
+## Containerization
+
+### Docker Setup
+- Multi-stage builds
+- Environment-specific configurations
+- Health checks
+- Resource limits
+
+### Building Images
+```bash
+# Using Dockerfile
+mvn spring-boot:build-image -Dspring-boot.build-image.imageName=accounts-service
+
+# Using Buildpacks
+mvn spring-boot:build-image
+
+# Using Jib
+mvn compile jib:dockerBuild
+```
+
+## Configuration Management
+
+### Spring Cloud Config
+- Centralized configuration
+- Environment-specific properties
+- Encryption/decryption
+- Refresh scopes
+- Spring Cloud Bus for config updates
+
+### Profiles
+- Development
+- QA
+- Production
+
+## Service Discovery & Load Balancing
+
+### Eureka Server
+- Service registration
+- Health monitoring
+- Self-preservation mode
+- High availability
+
+### Client-Side Load Balancing
+- Feign client
+- Ribbon (deprecated in favor of Spring Cloud LoadBalancer)
+- Retry mechanisms
+- Circuit breakers
+
+## Cloud-Native Features
+
+### 15-Factor App Methodology
+1. Codebase
+2. Dependencies
+3. Config
+4. Backing services
+5. Build, release, run
+6. Processes
+7. Port binding
+8. Concurrency
+9. Disposability
+10. Dev/prod parity
+11. Logs
+12. Admin processes
+13. API first
+14. Telemetry
+15. Authentication/authorization
+
+## Development Guidelines
+
+### Code Style
+- Google Java Style Guide
+- Checkstyle
+- SpotBugs
+- PMD
+
+### Testing
+- Unit tests (JUnit 5, Mockito)
+- Integration tests (@SpringBootTest)
+- Testcontainers
+- Contract testing (Spring Cloud Contract)
+
+### CI/CD
+- GitHub Actions
+- Docker image scanning
+- Security scanning
+- Performance testing
+
+
+## 🔧 Configuration
+
+Configuration files are stored in the `configserver` module and can be managed through the Spring Cloud Config Server.
+
+## 📚 Documentation
+
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
+- [Spring Cloud Documentation](https://spring.io/projects/spring-cloud)
+- [Docker Documentation](https://docs.docker.com/)
+
 ## 🚀 Conclusion
 
 This repository demonstrates the **end-to-end lifecycle of microservice development**, from REST API design to containerization, centralized configuration, and service discovery. By following the documented steps, developers can replicate and extend the project for real-world enterprise use cases.
