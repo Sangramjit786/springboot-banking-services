@@ -1162,7 +1162,7 @@ Custom charts for Accounts, Loans, Cards, Gateway, ConfigServer are installed wi
 helm install accounts ./accounts-chart
 helm install loans ./loans-chart
 
-### 2### 23) Demo of helm upgrade command
+### 223) Demo of helm upgrade command
 Upgrade running services without downtime:
 helm upgrade accounts ./accounts-chart
 
