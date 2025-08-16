@@ -651,6 +651,308 @@ Order: Timeout → Retry → Circuit Breaker → Bulkhead → Fallback.
 ### 138) Demo of Resiliency patterns using Docker containers & Docker compose
 We test resiliency (circuit breakers, retries, bulkheads) in a Dockerized microservice setup.
 
+### 139) Introduction to Observability And Monitoring Of Microservices
+Observability is about understanding the internal state of a system by examining its logs, metrics, and traces. Monitoring is about collecting and analyzing this data to ensure the system behaves as expected. Together, they provide end-to-end visibility into microservices health.
+
+### 140) Observability vs Monitoring
+Monitoring = Collecting predefined data (CPU, memory, errors).
+Observability = Deriving insights about unknown issues by analyzing logs, metrics, and traces.
+👉 Observability is broader; monitoring is a subset.
+
+### 141) Introduction to centralized logging or Log Aggregation in microservices
+In microservices, logs are spread across containers. Centralized logging tools like ELK Stack or Grafana Loki aggregate logs in one place for easier debugging, correlation, and search.
+
+### 142) Introduction to managing logs with Grafana, Loki & Alloy
+Loki → log aggregation system.
+Grafana → visualization & dashboards.
+Alloy → log shipping agent.
+They work together to provide a lightweight, cost-efficient alternative to ELK stack.
+
+### 143) Sample demo of logging using Grafana, Loki & Alloy
+Alloy installed as a sidecar/container.
+Logs shipped from microservices → Loki.
+Grafana dashboards configured to visualize logs.
+
+### 144) Implementing logging using Grafana, Loki & Alloy
+Add Alloy agent in Docker Compose.
+Configure Loki endpoint.
+Update microservice Dockerfiles to write structured logs.
+Connect Grafana with Loki.
+
+### 145) Docker file changes for implementing logging using Grafana, Loki & Alloy. Also, tested using Grafana UI
+Modify Dockerfile to include JSON log format.
+Use stdout & stderr (not files).
+Configure Grafana UI queries to test service-level logs.
+
+### 146) Managing metrics & monitoring with Actuator, Micrometer, Prometheus & Grafana
+Spring Boot Actuator → exposes metrics endpoints.
+Micrometer → instrumentation library.
+Prometheus → stores metrics.
+Grafana → visualizes metrics.
+
+### 147) Setup of Micrometer inside microservices
+Add dependency: micrometer-registry-prometheus.
+Enable Actuator metrics (/actuator/metrics).
+Configure custom metrics with @Timed, Counter, Gauge.
+
+### 148) Setup of Prometheus inside microservices
+Define prometheus.yml config.
+Configure targets (microservice endpoints).
+Run Prometheus container with Docker Compose.
+
+### 149) Demo of Prometheus
+Access Prometheus UI (http://localhost:9090).
+Run queries like http_server_requests_seconds_count.
+Verify data scraping from microservices.
+
+### 150) Demo of Prometheus & Grafana integration
+Add Prometheus as a data source in Grafana.
+Build dashboards (CPU, memory, request latency).
+Set alerts for SLA violations.
+
+### 151) Demo of Grafana inbuilt & custom Dashboards
+Use inbuilt dashboards for JVM, Spring Boot.
+Create custom dashboards with query editor.
+Share dashboards with team.
+
+### 152) Create Alerts & Send notifications using Grafana with 2 different Approach
+Alert rules in Grafana → email/SMS/Slack notifications.
+Alertmanager (Prometheus) integration → advanced alert routing.
+
+### 153) Introduction to Distributed Tracing in microservices
+Tracing follows requests across service boundaries, identifying bottlenecks and latency sources.
+
+### 154) Introduction to OpenTelemetry
+OpenTelemetry (OTel) is an open standard for collecting telemetry data (logs, metrics, traces). Supported by Prometheus, Grafana, and Jaeger.
+
+### 155) Implement OpenTelemetry changes inside microservices
+Add opentelemetry-javaagent.jar.
+Configure exporter (OTLP → Tempo/Jaeger).
+Inject tracing context in REST calls via headers.
+
+### 156) Implementing Tracing using Grafana, Tempo & OpenTelemetry
+Tempo stores traces.
+Logs/metrics linked to traces via correlation IDs.
+Grafana integrates Tempo for trace visualization.
+
+### 157) Navigating to Tempo from Loki logs
+From a log entry in Loki → click trace ID → jump to Tempo → visualize end-to-end request journey.
+
+### 158) Conclusion of Observability and Monitoring
+Observability ensures debuggability, reliability, and performance optimization by combining logs, metrics, and traces with tools like Grafana, Loki, Prometheus, and Tempo.
+
+### 159) Introduction to Microservices Security
+Security ensures services are confidential, authenticated, and authorized. Managed via OAuth2, OpenID Connect, and IAM tools like Keycloak.
+
+### 160) Problems that OAuth2 solves
+Delegated access (apps act on behalf of users).
+Eliminates sharing credentials.
+Centralized token-based authentication.
+
+### 161) Introduction to OAuth2
+OAuth2 is an authorization framework allowing applications to access resources via access tokens.
+
+### 162) OAuth2 jargons or terminologies or roles
+Resource Owner → user.
+Client → application.
+Resource Server → API.
+Authorization Server → issues tokens.
+
+### 163) What is OpenID Connect & why it is important
+OpenID Connect = OAuth2 + Identity layer.
+Provides authentication + user profile info.
+Enables SSO (Single Sign-On).
+
+### 164) Introduction to IAM products & why KeyCloak
+IAM manages identity, roles, policies.
+Keycloak is open-source, supports OAuth2, OIDC, SAML, and integrates easily with Spring Boot.
+
+### 165) Deep dive of Client Credentials grant type flow
+Used for service-to-service authentication.
+Client authenticates directly with Auth Server → receives access token.
+
+### 166) Securing Gateway server using Client Credentials grant type flow
+Gateway acts as client.
+Uses client ID/secret to fetch tokens from Keycloak.
+Validates tokens for downstream services.
+
+### 167) Setup Auth server using KeyCloak
+Run Keycloak in Docker.
+Create Realm, Client, Roles, Users.
+Configure token settings.
+
+### 168) Register client details inside KeyCloak for Client credentials grant flow
+Register microservice as client.
+Assign roles.
+Enable "Service Accounts" for client credentials.
+
+### 169) Getting Access token from Auth Server in Client credentials grant flow
+Use POST /realms/{realm}/protocol/openid-connect/token.
+Pass client ID/secret.
+Receive access token.
+
+### 170) Securing Gateway server as a Resource server
+Enable Spring Security Resource Server.
+Configure JWT decoder with Keycloak public key.
+Protect APIs with @PreAuthorize.
+
+### 171) Implement Authorization inside Gateway server using Roles
+Map Keycloak roles → Spring Security roles.
+Use annotations (@PreAuthorize("hasRole('ADMIN')")).
+Role-based access enforcement.
+
+### 172) Deep dive of Authorization Code grant type flow
+User logs in via Auth Server → redirected to app with code → app exchanges code for token.
+Used for user login flows.
+
+### 173) Securing Gateway server using Authorization Code grant type flow
+Configure Spring Security OAuth2 client.
+Redirect to Keycloak login.
+Fetch user tokens and forward to microservices.
+
+### 174) Register client & end user inside KeyCloak for Authorization code grant flow
+Create client with redirect URIs.
+Register users in realm.
+Enable login with username/password.
+
+### 175) Demo of Authorization code grant type flow
+Run Gateway → redirect to Keycloak login.
+Login → redirected back with code → access microservices securely.
+
+### 176) Demo of Microservices Security using Docker containers & Docker compose
+Run Keycloak + Gateway + services in Docker Compose.
+End-to-end secure microservices demo.
+
+### 177) Introduction to Event-driven microservices
+Event-driven = services communicate asynchronously via events instead of REST. Improves decoupling, scalability, and resilience.
+
+### 178) Introduction to Event-driven models
+Pub/Sub model (publishers, subscribers).
+Event streaming (continuous stream processing).
+
+### 179) What we are going to build using a pub sub model
+Build a Message Service publishing events → Accounts & Notifications services subscribe and react asynchronously.
+
+### 180) Introduction to RabbitMQ
+RabbitMQ is a message broker supporting AMQP protocol. Provides queues, exchanges, routing keys.
+
+### 181) Why to use Spring Cloud Function
+Promotes functional programming style.
+Abstracts vendor-specific code.
+Easily integrates with Spring Cloud Stream.
+
+### 182) Develop message microservice using Spring Cloud Functions
+Define Function<Message, Message>.
+Publish messages via RabbitMQ.
+Consumers automatically subscribed.
+
+### 183) Why to use Spring Cloud Stream
+Abstracts messaging middleware (Kafka, RabbitMQ).
+Provides simple binder-based integration.
+Allows switching brokers with minimal config.
+
+### 184) Update message & accounts microservices to stream & process the events
+Configure Spring Cloud Stream bindings.
+Accounts service subscribes to messages.
+Process data asynchronously.
+
+### 185) Demo of Async communication or event streaming using Rabbit MQ
+Publish event in Message service.
+Accounts service processes event in real-time.
+Verified using RabbitMQ UI.
+
+### 186) Demo of Async comm or event streaming using Docker containers & Docker compose
+Run RabbitMQ container + services in Compose.
+End-to-end event streaming across services.
+
+### 187) Apache Kafka Vs RabbitMQ
+RabbitMQ → traditional broker, good for queues.
+Kafka → distributed log, great for high throughput streaming.
+
+### 188) Introduction to Apache Kafka
+Kafka is a distributed event streaming platform with brokers, topics, partitions, producers, consumers.
+
+### 189) Producer and Consumer side stories
+Producer → publishes events to topic.
+Consumer → subscribes to topics, processes events.
+
+### 190) Installation of Apache Kafka
+Run Kafka with Zookeeper in Docker.
+Create topics.
+Configure services.
+
+### 191) Implement & Demo of Async communication or event streaming using Kafka
+Publish messages from Message service.
+Accounts service consumes them.
+Verified with Kafka CLI commands.
+
+### 192) Demo of Async comm or event streaming using Docker containers & Docker Compose
+Run Kafka, Zookeeper, services in Docker Compose.
+Validate async streaming end-to-end.
+
+### 193) Introduction to the challenges related to container orchestration
+Managing scaling, networking, storage, resilience.
+Ensuring security, monitoring, upgrades.
+
+### 194) Introduction to Kubernetes
+Kubernetes (K8s) is an open-source container orchestration platform. Provides scaling, load balancing, self-healing, and automation.
+
+### 195) Deep dive on Kubernetes internal architecture
+Master components (API Server, Scheduler, Controller Manager, ETCD).
+Worker nodes (Kubelet, Kube Proxy, Pods).
+
+### 196) Setup a local Kubernetes cluster using Docker Desktop
+Enable Kubernetes in Docker Desktop.
+Verify using kubectl get nodes.
+
+### 197) Deploying the Kubernetes Dashboard UI
+Install dashboard YAML.
+Access via kubectl proxy.
+View pods, services, deployments.
+
+### 198) Deep dive on Kubernetes YAML configurations to deploy a microservice
+Deployment → replicas, strategy.
+Service → expose pods.
+ConfigMap/Secret → externalize configs.
+
+### 199) Deploying ConfigServer into Kubernetes Cluster
+Create deployment YAML for ConfigServer.
+Use Service to expose internally.
+
+### 200) Create environment variables inside Kubernetes Cluster using ConfigMap
+Define configmap.yaml.
+Mount as env variables in pod.
+
+### 201) Preparing Kubernetes manifest files for remaining microservices
+Write YAML for Accounts, Loans, Cards.
+Define services + deployments.
+
+### 202) Deploying remaining microservices into Kubernetes Cluster
+Apply manifests via kubectl apply -f.
+Verify pods running.
+
+### 203) Automatic Self healing inside Kubernetes cluster
+If pod fails → kubelet restarts automatically.
+Ensures high availability.
+
+### 204) Automatic Rollout & Rollback inside Kubernetes cluster
+kubectl rollout allows gradual deployment.
+Rollback in case of failure.
+
+### 205) Introduction to Kubernetes Service types
+ClusterIP → internal only.
+NodePort → exposed on nodes.
+LoadBalancer → external traffic.
+
+### 206) Demo of Kubernetes Service types
+Deploy test services.
+Expose with ClusterIP, NodePort, LoadBalancer.
+Access via browser.
+
+### 207) Problems with manually created Kubernetes manifest files
+Manual YAML creation = error-prone, repetitive, hard to scale.
+Solution: Helm charts, Kustomize, GitOps.
+
 ---
 
 ## 🚀 Conclusion
