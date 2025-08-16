@@ -156,6 +156,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 104. [Starting all the microservices using docker compose file](#104 starting all the microservices using docker compose file)  
 105. [Demo of Client Side Service Discovery & Load balancing](#105 demo of client side service discovery load balancing)  
 106. [Usage of GRAALVM](#106 usage of graalvm)
+## Client-side service discovery and load balancing:
+<img width="1171" height="532" alt="image" src="https://github.com/user-attachments/assets/454f3779-d57d-4a6a-8bc7-fc3eb45a4b6f" />
 
 ## 15. API Gateway & Edge Services
 107. [Challenges while dealing external communication in microservices](#107 challenges while dealing external communication in microservices)  
@@ -171,6 +173,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 117. [Design patterns around API Gateway](#117 design patterns around api gateway)  
 118. [Generating & pushing Docker images with Gateway changes](#118 generating pushing docker images with gateway changes)  
 119. [Updating Docker Compose file for Gateway changes](#119 updating docker compose file for gateway changes) 
+## API GATEWAY Pattern:
+<img width="1345" height="748" alt="image" src="https://github.com/user-attachments/assets/047037d6-ebaa-436c-84bb-6e68b1bbedcb" />
 
 ## 16. Resiliency Patterns 
 120. [Introduction to the need of Resiliency in microservices](#120 introduction to the need of resiliency in microservices)  
@@ -192,6 +196,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 136. [Introduction to Bulkhead pattern](#136 introduction to bulkhead pattern)  
 137. [Aspect order of Resiliency patterns](#137 aspect order of resiliency patterns)  
 138. [Demo of Resiliency patterns using Docker](#138 demo of resiliency patterns using docker) 
+## CIRCUIT BREAKER Pattern:
+<img width="1877" height="737" alt="image" src="https://github.com/user-attachments/assets/70d73f95-7fcf-4bf5-98a0-30bb939eb2c1" />
 
 ## 17. Observability & Monitoring 
 139. [Introduction to Observability & Monitoring](#139 introduction to observability monitoring)  
@@ -233,7 +239,12 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 173. [Securing Gateway server with Authorization Code grant flow](#173 securing gateway server with authorization code grant flow)  
 174. [Registering client & end user in Keycloak](#174 registering client end user in keycloak)  
 175. [Demo of Authorization Code flow](#175 demo of authorization code flow)  
-176. [Demo of Security with Docker & Docker Compose](#176 demo of security with docker docker compose)  
+176. [Demo of Security with Docker & Docker Compose](#176 demo of security with docker docker compose) 
+## Client Credentials Grant Type Flow:  
+<img width="1247" height="626" alt="image" src="https://github.com/user-attachments/assets/8841a989-807e-4c4e-acde-f8cbda7abbcc" />
+
+## Authorization Code Grant Type Flow:
+<img width="1794" height="887" alt="image" src="https://github.com/user-attachments/assets/68ef79dc-b65c-4021-9479-fb972a9056ec" />
 
 ## 19. Event-Driven Microservices
 177. [Introduction to Event driven microservices](#177 introduction to event driven microservices)  
@@ -252,6 +263,11 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 190. [Installing Apache Kafka](#190 installing apache kafka)  
 191. [Implementing async event streaming with Kafka](#191 implementing async event streaming with kafka)  
 192. [Demo of Kafka event streaming with Docker Compose](#192 demo of kafka event streaming with docker compose) 
+## PUB/SUB Model Flow:
+<img width="1873" height="910" alt="image" src="https://github.com/user-attachments/assets/78de6bf6-a297-4634-a010-145a4309cc3e" />
+
+## Using RabbitMQ for publish/subscribe communications:
+<img width="1750" height="653" alt="image" src="https://github.com/user-attachments/assets/b13f0fdf-b616-4a37-8d31-854a0ca2d953" />
 
 ## 20. Kubernetes & Orchestration 
 193. [Challenges in container orchestration](#193 challenges in container orchestration)  
@@ -269,6 +285,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 205. [Kubernetes Service types explained](#205 kubernetes service types explained)  
 206. [Demo of Kubernetes Service types](#206 demo of kubernetes service types)  
 207. [Problems with manually created Kubernetes manifests](#207 problems with manually created kubernetes manifests)
+## Kubernetes Internal Architecture:
+<img width="1917" height="951" alt="image" src="https://github.com/user-attachments/assets/a815623f-d79b-469a-a3ed-f6a60ee391cf" />
 
 ## 21. Helm & Kubernetes Automation
 208. [Introduction to Helm & the problems that it solves](#208 introduction to helm the problems that it solves)  
@@ -304,7 +322,9 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 236. [Installing all our microservices and supporting components in Google Cloud K8s](#236 installing all our microservices and supporting components in google cloud k8s)  
 237. [Demo of eazybank microservices using Google Cloud Kubernetes Cluster](#237 demo of eazybank microservices using google cloud kubernetes cluster)  
 238. [Validate Grafana components in Google Cloud Kubernetes Cluster](#238 validate grafana components in google cloud kubernetes cluster)  
-239. [Deleting the Google Cloud Kubernetes Cluster](#239 deleting the google cloud kubernetes cluster)  
+239. [Deleting the Google Cloud Kubernetes Cluster](#239 deleting the google cloud kubernetes cluster)
+## Server-side service discovery and load balancing:  
+<img width="1353" height="517" alt="image" src="https://github.com/user-attachments/assets/e45bc553-d28f-455a-b1c4-2bd5443142ec" />
 
 ## 23. Kubernetes Ingress & Service Mesh
 240. [Quick introduction to Kubernetes Ingress](#240 quick introduction to kubernetes ingress)  
