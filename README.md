@@ -114,7 +114,108 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 103. [Updating Docker Compose file to adapt Service Discovery changes](#103 updating docker compose file to adapt service discovery changes)  
 104. [Starting all the microservices using docker compose file](#104 starting all the microservices using docker compose file)  
 105. [Demo of Client Side Service Discovery & Load balancing](#105 demo of client side service discovery load balancing)  
-106. [Usage of GRAALVM](#106 usage of graalvm)  
+106. [Usage of GRAALVM](#106 usage of graalvm)
+107. [Challenges while dealing external communication in microservices](#107 challenges while dealing external communication in microservices)  
+108. [Why we need an Edge Server or API Gateway inside microservices](#108 why we need an edge server or api gateway inside microservices)  
+109. [Introduction to Spring Cloud Gateway](#109 introduction to spring cloud gateway)  
+110. [Deep dive on Spring Cloud Gateway internal architecture](#110 deep dive on spring cloud gateway internal architecture)  
+111. [Building Edge Server using Spring Cloud Gateway](#111 building edge server using spring cloud gateway)  
+112. [Demo of Edge Server with default routing configs](#112 demo of edge server with default routing configs)  
+113. [Accepting lowercase service names in Gateway server](#113 accepting lowercase service names in gateway server)  
+114. [Implementing Custom Routing using Spring Cloud Gateway](#114 implementing custom routing using spring cloud gateway)  
+115. [Demo of addResponseHeader filter](#115 demo of addresponseheader filter)  
+116. [Implementing Tracing & Logging via Gateway](#116 implementing tracing logging via gateway)  
+117. [Design patterns around API Gateway](#117 design patterns around api gateway)  
+118. [Generating & pushing Docker images with Gateway changes](#118 generating pushing docker images with gateway changes)  
+119. [Updating Docker Compose file for Gateway changes](#119 updating docker compose file for gateway changes)  
+120. [Introduction to the need of Resiliency in microservices](#120 introduction to the need of resiliency in microservices)  
+121. [Typical use case for Resiliency](#121 typical use case for resiliency)  
+122. [Deep dive on Circuit Breaker pattern](#122 deep dive on circuit breaker pattern)  
+123. [Three states of Circuit Breaker pattern](#123 three states of circuit breaker pattern)  
+124. [Implementing Circuit Breaker in Gateway](#124 implementing circuit breaker in gateway)  
+125. [Implementing Fallback mechanism in API Gateway](#125 implementing fallback mechanism in api gateway)  
+126. [Circuit Breaker with Feign Client](#126 circuit breaker with feign client)  
+127. [HTTP Timeout configurations in Loans service](#127 http timeout configurations in loans service)  
+128. [Introduction to Retry pattern](#128 introduction to retry pattern)  
+129. [Implementing Retry pattern in Gateway](#129 implementing retry pattern in gateway)  
+130. [Implementing Retry pattern in Accounts service](#130 implementing retry pattern in accounts service)  
+131. [Introduction to Rate Limiter pattern](#131 introduction to rate limiter pattern)  
+132. [Redis RateLimiter in Gateway Server](#132 redis ratelimiter in gateway server)  
+133. [Implementing Redis RateLimiter in Gateway Server](#133 implementing redis ratelimiter in gateway server)  
+134. [Testing Redis RateLimiter with Apache Benchmark](#134 testing redis ratelimiter with apache benchmark)  
+135. [Implementing RateLimiter in Accounts service](#135 implementing ratelimiter in accounts service)  
+136. [Introduction to Bulkhead pattern](#136 introduction to bulkhead pattern)  
+137. [Aspect order of Resiliency patterns](#137 aspect order of resiliency patterns)  
+138. [Demo of Resiliency patterns using Docker](#138 demo of resiliency patterns using docker)  
+139. [Introduction to Observability & Monitoring](#139 introduction to observability monitoring)  
+140. [Observability vs Monitoring](#140 observability vs monitoring)  
+141. [Centralized Logging (Log Aggregation) in microservices](#141 centralized logging log aggregation in microservices)  
+142. [Managing logs with Grafana, Loki & Alloy](#142 managing logs with grafana loki alloy)  
+143. [Demo: Logging using Grafana, Loki & Alloy](#143 demo logging using grafana loki alloy)  
+144. [Implementing logging with Grafana, Loki & Alloy](#144 implementing logging with grafana loki alloy)  
+145. [Dockerfile changes for logging setup & Grafana UI test](#145 dockerfile changes for logging setup grafana ui test)  
+146. [Managing Metrics & Monitoring with Actuator, Micrometer, Prometheus & Grafana](#146 managing metrics monitoring with actuator micrometer prometheus grafana)  
+147. [Setup of Micrometer in microservices](#147 setup of micrometer in microservices)  
+148. [Setup of Prometheus in microservices](#148 setup of prometheus in microservices)  
+149. [Demo of Prometheus](#149 demo of prometheus)  
+150. [Demo of Prometheus & Grafana integration](#150 demo of prometheus grafana integration)  
+151. [Demo of Grafana dashboards](#151 demo of grafana dashboards)  
+152. [Creating Alerts & Notifications in Grafana](#152 creating alerts notifications in grafana)  
+153. [Introduction to Distributed Tracing](#153 introduction to distributed tracing)  
+154. [Introduction to OpenTelemetry](#154 introduction to opentelemetry)  
+155. [Implementing OpenTelemetry in microservices](#155 implementing opentelemetry in microservices)  
+156. [Tracing with Grafana, Tempo & OpenTelemetry](#156 tracing with grafana tempo opentelemetry)  
+157. [Navigating to Tempo from Loki logs](#157 navigating to tempo from loki logs)  
+158. [Conclusion of Observability & Monitoring](#158 conclusion of observability monitoring)  
+159. [Introduction to Microservices Security](#159 introduction to microservices security)  
+160. [Problems solved by OAuth2](#160 problems solved by oauth2)  
+161. [Introduction to OAuth2](#161 introduction to oauth2)  
+162. [OAuth2 jargons, roles & terminologies](#162 oauth2 jargons roles terminologies)  
+163. [OpenID Connect & its importance](#163 openid connect its importance)  
+164. [IAM Products & Why Keycloak](#164 iam products why keycloak)  
+165. [Deep dive on Client Credentials grant flow](#165 deep dive on client credentials grant flow)  
+166. [Securing Gateway server with Client Credentials flow](#166 securing gateway server with client credentials flow)  
+167. [Setup Auth server using Keycloak](#167 setup auth server using keycloak)  
+168. [Register client details in Keycloak for Client Credentials flow](#168 register client details in keycloak for client credentials flow)  
+169. [Getting Access Token from Auth Server](#169 getting access token from auth server)  
+170. [Securing Gateway as a Resource server](#170 securing gateway as a resource server)  
+171. [Implementing Authorization with Roles in Gateway](#171 implementing authorization with roles in gateway)  
+172. [Deep dive on Authorization Code grant flow](#172 deep dive on authorization code grant flow)  
+173. [Securing Gateway server with Authorization Code grant flow](#173 securing gateway server with authorization code grant flow)  
+174. [Registering client & end user in Keycloak](#174 registering client end user in keycloak)  
+175. [Demo of Authorization Code flow](#175 demo of authorization code flow)  
+176. [Demo of Security with Docker & Docker Compose](#176 demo of security with docker docker compose)  
+177. [Introduction to Event driven microservices](#177 introduction to event driven microservices)  
+178. [Event driven models explained](#178 event driven models explained)  
+179. [What we will build with Pub/Sub model](#179 what we will build with pubsub model)  
+180. [Introduction to RabbitMQ](#180 introduction to rabbitmq)  
+181. [Why use Spring Cloud Function](#181 why use spring cloud function)  
+182. [Building Message microservice with Spring Cloud Functions](#182 building message microservice with spring cloud functions)  
+183. [Why use Spring Cloud Stream](#183 why use spring cloud stream)  
+184. [Updating Message & Accounts services to process events](#184 updating message accounts services to process events)  
+185. [Demo of async communication with RabbitMQ](#185 demo of async communication with rabbitmq)  
+186. [Demo of async event streaming with Docker Compose](#186 demo of async event streaming with docker compose)  
+187. [Apache Kafka vs RabbitMQ](#187 apache kafka vs rabbitmq)  
+188. [Introduction to Apache Kafka](#188 introduction to apache kafka)  
+189. [Producer & Consumer explained](#189 producer consumer explained)  
+190. [Installing Apache Kafka](#190 installing apache kafka)  
+191. [Implementing async event streaming with Kafka](#191 implementing async event streaming with kafka)  
+192. [Demo of Kafka event streaming with Docker Compose](#192 demo of kafka event streaming with docker compose)  
+193. [Challenges in container orchestration](#193 challenges in container orchestration)  
+194. [Introduction to Kubernetes](#194 introduction to kubernetes)  
+195. [Kubernetes internal architecture deep dive](#195 kubernetes internal architecture deep dive)  
+196. [Setup local Kubernetes cluster with Docker Desktop](#196 setup local kubernetes cluster with docker desktop)  
+197. [Deploying Kubernetes Dashboard UI](#197 deploying kubernetes dashboard ui)  
+198. [Kubernetes YAML for microservice deployment](#198 kubernetes yaml for microservice deployment)  
+199. [Deploying Config Server in Kubernetes](#199 deploying config server in kubernetes)  
+200. [Using ConfigMap for environment variables in K8s](#200 using configmap for environment variables in k8s)  
+201. [Preparing manifest files for microservices](#201 preparing manifest files for microservices)  
+202. [Deploying microservices in Kubernetes](#202 deploying microservices in kubernetes)  
+203. [Automatic Self healing in Kubernetes](#203 automatic self healing in kubernetes)  
+204. [Automatic Rollout & Rollback in Kubernetes](#204 automatic rollout rollback in kubernetes)  
+205. [Kubernetes Service types explained](#205 kubernetes service types explained)  
+206. [Demo of Kubernetes Service types](#206 demo of kubernetes service types)  
+207. [Problems with manually created Kubernetes manifests](#207 problems with manually created kubernetes manifests)
 
 
 ---
@@ -448,6 +549,107 @@ Feign + Eureka tested for load balancing.
 
 ### 106) Usage of GRAALVM  
 GraalVM used for **ahead-of-time compilation** to improve microservice performance and reduce memory footprint.
+
+### 107) Challenges while dealing external communication in microservices
+External communication introduces challenges such as latency, network failures, security risks, and version mismatches. These issues must be addressed with resiliency patterns, retries, circuit breakers, and API gateways.
+
+### 108) Why we need an Edge Server or API Gateway inside microservices
+An API Gateway acts as the single entry point to microservices, handling routing, security, load balancing, logging, and cross-cutting concerns, thus reducing client-side complexity.
+
+### 109) Introduction to Spring Cloud Gateway
+Spring Cloud Gateway is a reactive, non-blocking API Gateway built on Spring WebFlux, providing dynamic routing, filters, rate limiting, and resiliency features.
+
+### 110) Deep dive on Spring Cloud Gateway internal architecture
+Spring Cloud Gateway uses RouteDefinitionLocator (for routes), Predicate (to match requests), and Filters (to apply modifications). It is built on Project Reactor for high-performance reactive handling.
+
+### 111) Building Edge Server using Spring Cloud Gateway
+We build an Edge Server by creating a Spring Boot project with spring-cloud-starter-gateway. It routes incoming requests to backend services using route definitions.
+
+### 112) Demo of Edge Server with default routing configs
+A demo shows configuring routes in application.yml with service URLs and testing them using Postman or browser requests.
+
+### 113) Make changes inside Gateway server to accept service names with lower case
+Spring Cloud Gateway is case-sensitive by default. We configure it to handle lowercase service names to ensure consistency and usability.
+
+### 114) Implementing Custom Routing using Spring Cloud Gateway
+Custom routing is implemented using Java-based configuration (RouteLocatorBuilder) to apply dynamic routing logic.
+
+### 115) Demo of addResponseHeader filter
+We demonstrate adding custom headers (e.g., X-Service-Name, X-Trace-Id) using Gateway’s addResponseHeader filter for better tracking.
+
+### 116) Implementing Cross-cutting concerns Tracing & Logging using Gateway
+We add filters to capture request/response logs and trace IDs at the Gateway level for centralized tracing.
+
+### 117) Design patterns around API Gateway
+Common patterns include:
+Aggregator Pattern: Combining multiple microservice calls.
+Backend-for-Frontend (BFF): Different gateways for different clients.
+Edge Security Pattern: Centralizing authentication/authorization.
+
+### 118) Generating and pushing Docker images with Spring Cloud Gateway changes
+We add a Dockerfile, build images with docker build, and push them to Docker Hub for deployment.
+
+### 119) Updating Docker Compose file to adapt Spring Cloud Gateway changes
+We update docker-compose.yml to include the new Gateway service with networking and dependencies.
+
+### 120) Introduction to the need of Resiliency inside microservices
+Resiliency ensures microservices continue functioning under failures. It protects against network issues, latency, or service crashes.
+
+### 121) Typical use case or scenario for the need of Resiliency
+Example: If Loan Service is down, Accounts should still work by returning cached or fallback responses.
+
+### 122) Deep dive on Circuit Breaker pattern
+Circuit Breaker prevents cascading failures by stopping requests to a failing service and restoring when it becomes healthy.
+
+### 123) Three states of Circuit Breaker pattern
+Closed → Requests flow normally.
+Open → Requests blocked due to failures.
+Half-Open → Limited requests allowed to test recovery.
+
+### 124) Implementing Circuit Breaker pattern in Gateway
+Using Resilience4j, we configure circuit breakers inside Spring Cloud Gateway for failing routes.
+
+### 125) Implementing Fallback mechanism for Circuit Breaker pattern in APIGateway service/Edge server
+When a service fails, the Gateway returns a default fallback response instead of propagating the error.
+
+### 126) Implementing Circuit Breaker pattern with Feign Client
+Feign Clients integrate with Resilience4j/Hystrix to provide circuit breaking and fallbacks for REST calls.
+
+### 127) Implementing Http timeout configurations, in loans service
+We configure connect/read timeouts in application.yml to avoid infinite waits during service calls.
+
+### 128) Introduction to Retry pattern
+Retry re-executes failed requests (with exponential backoff) to handle temporary failures.
+
+### 129) Implementing Retry pattern in Gateway
+We configure Retry filters in Gateway to automatically retry failed requests.
+
+### 130) Implementing Retry pattern in accounts
+Accounts service is configured with Resilience4j Retry to handle intermittent downstream failures.
+
+### 131) Introduction to Rate Limiter pattern
+Rate Limiting ensures fair usage by restricting request rates per client/service.
+
+### 132) Introduction to Redis RateLimiter in Gateway Server
+Spring Cloud Gateway integrates with Redis for distributed rate limiting across multiple instances.
+
+### 133) Implementing Redis RateLimiter in Gateway Server
+We configure RedisRateLimiter in Gateway application.yml to throttle requests.
+
+### 134) Implementing Redis RateLimiter in Gateway Server and tested using Apache Benchmark
+We run ab tool to simulate high traffic and validate request throttling.
+
+### 135) Implementing RateLimiter pattern in accounts
+Rate limiting is added at the service level to protect accounts API from abuse.
+
+### 136) Introduction to Bulkhead pattern
+Bulkheads isolate resources (like thread pools) for services to contain failures.
+
+### 137) Aspect order of Resiliency patterns
+Order: Timeout → Retry → Circuit Breaker → Bulkhead → Fallback.
+
+### 138) Demo of Resiliency patterns using Docker containers & Docker compose
+We test resiliency (circuit breakers, retries, bulkheads) in a Dockerized microservice setup.
 
 ---
 
