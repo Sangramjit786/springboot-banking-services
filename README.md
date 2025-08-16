@@ -9,41 +9,58 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 
 ## 📘 Table of Contents
 
+## 1) Getting Started with Microservices
 1. [How to build microservices](#1 how to build microservices)  
 2. [Introduction to SpringBoot framework](#2 introduction to springboot framework)  
 3. [Introduction to REST APIs & best practices](#3 introduction to rest apis best practices)  
+
+## 2) Building Your First Spring Boot Project
 4. [Creating a Spring Boot project](#4 creating a spring boot project)  
 5. [Creating Hello World REST API using @RestController](#5 creating hello world rest api using restcontroller)  
 6. [Configuring H2 DB & YAML properties](#6 configuring h2 db yaml properties)  
 7. [Writing Spring Data JPA entities & repositories to interact with DB tables](#7 writing spring data jpa entities repositories to interact with db tables)  
+
+## 3) Working with DTOs and CRUD Operations
 8. [Introduction to DTO (Data Transfer Object) pattern](#8 introduction to dto data transfer object pattern)  
 9. [Creating DTOs inside accounts microservice](#9 creating dtos inside accounts microservice)  
 10. [CREATE API inside accounts microservice](#10 create api inside accounts microservice)  
 11. [READ API inside accounts microservice](#11 read api inside accounts microservice)  
 12. [UPDATE API inside accounts microservice](#12 update api inside accounts microservice)  
-13. [DELETE API inside accounts microservice](#13 delete api inside accounts microservice)  
+13. [DELETE API inside accounts microservice](#13 delete api inside accounts microservice) 
+
+## 4) Exception Handling & Validations 
 14. [Handle all types of runtime exceptions using global logic inside accounts](#14 handle all types of runtime exceptions using global logic inside accounts)  
 15. [GlobalExceptionHandler & CustomMapper](#15 also implemented globalexceptionhandler implemented custommapper)  
 16. [Perform input data validations inside accounts microservice](#16 perform input data validations inside accounts microservice)  
 17. [Update audit columns using Spring Data](#17 update audit columns using spring data)  
+
+## 5. API Documentation with OpenAPI
 18. [Introduction to documentation of REST APIs using springdoc openapi](#18 introduction to documentation of rest apis using springdoc openapi)  
 19. [Enhancing documentation of REST APIs using @OpenAPIDefinition](#19 enhancing documentation of rest apis using openapidefinition)  
 20. [Enhancing documentation of REST APIs using @Tag, @Operation, @ApiResponse](#20 enhancing documentation of rest apis using tag operation apiresponse)  
 21. [Enhancing documentation of REST APIs using @Schema & example data](#21 enhancing documentation of rest apis using schema example data)  
 22. [Important Annotations & Classes that supports building REST services](#22 important annotations classes that supports building rest services)  
+
+## 6. Expanding Microservices – Loans & Cards
 23. [Assignment to build Loans & Cards microservices](#23 assignment to build loans cards microservices)  
 24. [Deep dive and demo of Loans microservice](#24 deep dive and demo of loans microservice)  
 25. [Deep dive and demo of Cards microservice](#25 deep dive and demo of cards microservice)  
+
+## 7. Designing Microservices – Boundaries & Patterns
 26. [Approaches to identify boundaries & right size microservices](#26 approaches to identify boundaries right size microservices)  
 27. [Sizing & identifying boundaries with a Bank App use case](#27 sizing identifying boundaries with a bank app use case)  
 28. [Sizing & identifying boundaries with a ecommerce migration use case](#28 sizing identifying boundaries with a ecommerce migration use case)  
 29. [Strangler Fig pattern](#29 strangler fig pattern)  
+
+## 8. Challenges & Containerization Basics
 30. [Introduction to challenges while building, deploying microservices](#30 introduction to challenges while building deploying microservices)  
 31. [What are Containers & how they are different from VMs](#31 what are containers how they are different from vms)  
 32. [Definition of Containers, Containerization, Docker](#32 definition of containers containerization docker)  
 33. [Introduction to Docker components & its architecture](#33 introduction to docker components its architecture)  
 34. [Docker installation & docker hub introduction](#34 docker installation docker hub introduction)  
 35. [Introduction to the three approaches for Docker image generation](#35 introduction to the three approaches for docker image generation)  
+
+## 9. Docker Images & Container Management
 36. [Generate Docker Image of Accounts microservice with Dockerfile](#36 generate docker image of accounts microservice with dockerfile)  
 37. [Running accounts microservice as a Docker container](#37 running accounts microservice as a docker container)  
 38. [Challenges with Dockerfile approach to generate a Docker image](#38 challenges with dockerfile approach to generate a docker image)  
@@ -55,12 +72,16 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 44. [Running all microservice containers using Docker Compose command](#44 running all microservice containers using docker compose command)  
 45. [Demo of docker compose commands](#45 demo of docker compose commands)  
 46. [Deep dive on Docker commands](#46 deep dive on docker commands)  
-47. [Introduction to Docker extensions and LogsExplorer](#47 introduction to docker extensions and logsexplorer)  
+47. [Introduction to Docker extensions and LogsExplorer](#47 introduction to docker extensions and logsexplorer) 
+
+## 10. Cloud Native Applications 
 48. [Introduction to Cloud native applications](#48 introduction to cloud native applications)  
 49. [Important characteristics of cloud native applications](#49 important characteristics of cloud native applications)  
 50. [Differences between cloud native Apps & Traditional enterprise Apps](#50 differences between cloud native apps traditional enterprise apps)  
 51. [Introduction to 12 factor & 15 factor methodologies](#51 introduction to 12 factor 15 factor methodologies)  
 52. [Deepdive on 15 factor methodology](#52 deepdive on 15 factor methodology)  
+
+## 11. Configuration Management
 53. [Introduction to Configurations Management challenges inside microservices](#53 introduction to configurations management challenges inside microservices)  
 54. [How Configurations work in Spring Boot](#54 how configurations work in spring boot)  
 55. [Reading configurations using @Value annotation](#55 reading configurations using value annotation)  
@@ -74,6 +95,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 63. [Assignment to make SpringBoot profile changes inside loans & cards microservices](#63 assignment to make springboot profile changes inside loans cards microservices)  
 64. [Demo of Spring Boot profile changes inside loans & cards microservices](#64 demo of spring boot profile changes inside loans cards microservices)  
 65. [Drawbacks of externalized configurations using SpringBoot alone](#65 drawbacks of externalized configurations using springboot alone)  
+
+## 12. Spring Cloud Config
 66. [Introduction to Spring Cloud Config](#66 introduction to spring cloud config)  
 67. [Building Config Server using Spring Cloud Config](#67 building config server using spring cloud config)  
 68. [Reading configurations from the class path location of Config Server](#68 reading configurations from the class path location of config server)  
@@ -92,11 +115,15 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 81. [Generating Docker images and pushing them into Docker Hub](#81 generating docker images and pushing them into docker hub)  
 82. [Testing Config Server changes end to end using Docker compose & default profile](#82 testing config server changes end to end using docker compose default profile)  
 83. [Preparing Docker Compose files for QA & prod profiles](#83 preparing docker compose files for qa prod profiles)  
+
+## 13. Database Management
 84. [Create MySQL DB containers for microservices](#84 create mysql db containers for microservices)  
 85. [Update microservices code to replace H2 DB with MySQL DB](#85 update microservices code to replace h2 db with mysql db)  
 86. [Update docker compose file to create & use MySQL DB](#86 update docker compose file to create use mysql db)  
 87. [Running microservices & MySQL DB containers using docker compose file](#87 running microservices mysql db containers using docker compose file)  
 88. [Demo of Docker network concept](#88 demo of docker network concept)  
+
+## 14. Service Discovery & Load Balancing
 89. [Brief introduction about microservices traffic](#89 brief introduction about microservices traffic)  
 90. [Introduction to the Service Discovery & Registration inside microservices](#90 introduction to the service discovery registration inside microservices)  
 91. [Why not traditional load balancers for Microservices](#91 why not traditional load balancers for microservices)  
@@ -115,6 +142,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 104. [Starting all the microservices using docker compose file](#104 starting all the microservices using docker compose file)  
 105. [Demo of Client Side Service Discovery & Load balancing](#105 demo of client side service discovery load balancing)  
 106. [Usage of GRAALVM](#106 usage of graalvm)
+
+## 15. API Gateway & Edge Services
 107. [Challenges while dealing external communication in microservices](#107 challenges while dealing external communication in microservices)  
 108. [Why we need an Edge Server or API Gateway inside microservices](#108 why we need an edge server or api gateway inside microservices)  
 109. [Introduction to Spring Cloud Gateway](#109 introduction to spring cloud gateway)  
@@ -127,7 +156,9 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 116. [Implementing Tracing & Logging via Gateway](#116 implementing tracing logging via gateway)  
 117. [Design patterns around API Gateway](#117 design patterns around api gateway)  
 118. [Generating & pushing Docker images with Gateway changes](#118 generating pushing docker images with gateway changes)  
-119. [Updating Docker Compose file for Gateway changes](#119 updating docker compose file for gateway changes)  
+119. [Updating Docker Compose file for Gateway changes](#119 updating docker compose file for gateway changes) 
+
+## 16. Resiliency Patterns 
 120. [Introduction to the need of Resiliency in microservices](#120 introduction to the need of resiliency in microservices)  
 121. [Typical use case for Resiliency](#121 typical use case for resiliency)  
 122. [Deep dive on Circuit Breaker pattern](#122 deep dive on circuit breaker pattern)  
@@ -146,7 +177,9 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 135. [Implementing RateLimiter in Accounts service](#135 implementing ratelimiter in accounts service)  
 136. [Introduction to Bulkhead pattern](#136 introduction to bulkhead pattern)  
 137. [Aspect order of Resiliency patterns](#137 aspect order of resiliency patterns)  
-138. [Demo of Resiliency patterns using Docker](#138 demo of resiliency patterns using docker)  
+138. [Demo of Resiliency patterns using Docker](#138 demo of resiliency patterns using docker) 
+
+## 17. Observability & Monitoring 
 139. [Introduction to Observability & Monitoring](#139 introduction to observability monitoring)  
 140. [Observability vs Monitoring](#140 observability vs monitoring)  
 141. [Centralized Logging (Log Aggregation) in microservices](#141 centralized logging log aggregation in microservices)  
@@ -167,6 +200,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 156. [Tracing with Grafana, Tempo & OpenTelemetry](#156 tracing with grafana tempo opentelemetry)  
 157. [Navigating to Tempo from Loki logs](#157 navigating to tempo from loki logs)  
 158. [Conclusion of Observability & Monitoring](#158 conclusion of observability monitoring)  
+
+## 18. Security & OAuth2
 159. [Introduction to Microservices Security](#159 introduction to microservices security)  
 160. [Problems solved by OAuth2](#160 problems solved by oauth2)  
 161. [Introduction to OAuth2](#161 introduction to oauth2)  
@@ -185,6 +220,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 174. [Registering client & end user in Keycloak](#174 registering client end user in keycloak)  
 175. [Demo of Authorization Code flow](#175 demo of authorization code flow)  
 176. [Demo of Security with Docker & Docker Compose](#176 demo of security with docker docker compose)  
+
+## 19. Event-Driven Microservices
 177. [Introduction to Event driven microservices](#177 introduction to event driven microservices)  
 178. [Event driven models explained](#178 event driven models explained)  
 179. [What we will build with Pub/Sub model](#179 what we will build with pubsub model)  
@@ -200,7 +237,9 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 189. [Producer & Consumer explained](#189 producer consumer explained)  
 190. [Installing Apache Kafka](#190 installing apache kafka)  
 191. [Implementing async event streaming with Kafka](#191 implementing async event streaming with kafka)  
-192. [Demo of Kafka event streaming with Docker Compose](#192 demo of kafka event streaming with docker compose)  
+192. [Demo of Kafka event streaming with Docker Compose](#192 demo of kafka event streaming with docker compose) 
+
+## 20. Kubernetes & Orchestration 
 193. [Challenges in container orchestration](#193 challenges in container orchestration)  
 194. [Introduction to Kubernetes](#194 introduction to kubernetes)  
 195. [Kubernetes internal architecture deep dive](#195 kubernetes internal architecture deep dive)  
@@ -216,6 +255,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 205. [Kubernetes Service types explained](#205 kubernetes service types explained)  
 206. [Demo of Kubernetes Service types](#206 demo of kubernetes service types)  
 207. [Problems with manually created Kubernetes manifests](#207 problems with manually created kubernetes manifests)
+
+## 21. Helm & Kubernetes Automation
 208. [Introduction to Helm & the problems that it solves](#208 introduction to helm the problems that it solves)  
 209. [Installing Helm](#209 installing helm)  
 210. [Installing a sample Helm Chart](#210 installing a sample helm chart)  
@@ -234,7 +275,9 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 223. [Demo of helm upgrade command](#223 demo of helm upgrade command)  
 224. [Demo of helm history and rollback commands](#224 demo of helm history and rollback commands)  
 225. [Demo of helm uninstall command](#225 demo of helm uninstall command)  
-226. [Quick revision of important helm commands](#226 quick revision of important helm commands)  
+226. [Quick revision of important helm commands](#226 quick revision of important helm commands) 
+
+## 22. Server-Side Discovery & Cloud Deployment 
 227. [Introduction to Server side service discovery and load balancing](#227 introduction to server side service discovery and load balancing)  
 228. [How to setup discovery server in K8s cluster using spring cloud kubernetes](#228 how to setup discovery server in k8s cluster using spring cloud kubernetes)  
 229. [Install spring cloud kubernetes discovery server in K8s cluster](#229 install spring cloud kubernetes discovery server in k8s cluster)  
@@ -248,6 +291,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 237. [Demo of eazybank microservices using Google Cloud Kubernetes Cluster](#237 demo of eazybank microservices using google cloud kubernetes cluster)  
 238. [Validate Grafana components in Google Cloud Kubernetes Cluster](#238 validate grafana components in google cloud kubernetes cluster)  
 239. [Deleting the Google Cloud Kubernetes Cluster](#239 deleting the google cloud kubernetes cluster)  
+
+## 23. Kubernetes Ingress & Service Mesh
 240. [Quick introduction to Kubernetes Ingress](#240 quick introduction to kubernetes ingress)  
 241. [Deep dive on Kubernetes Ingress & Ingress Controller](#241 deep dive on kubernetes ingress ingress controller)  
 242. [Benefits of Kubernetes Ingress & the kind of traffic it handles](#242 benefits of kubernetes ingress the kind of traffic it handles)  
@@ -255,6 +300,8 @@ The project simulates a **banking application** with **Accounts, Loans, and Card
 244. [Introduction to Service mesh components](#244 introduction to service mesh components)  
 245. [Introduction to mTLS & deep dive on how TLS works](#245 introduction to mtls deep dive on how tls works)  
 246. [How does mTLS works](#246 how does mtls works)  
+
+## 24. Optimization & Shared Resources
 247. [Optimizing Microservices Development with Spring Boot BOM](#247 optimizing microservices development with spring boot bom)  
 248. [Shared Libraries in Microservices](#248 shared libraries in microservices)  
 
